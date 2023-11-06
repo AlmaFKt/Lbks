@@ -39,10 +39,12 @@ class LoginPage extends StatelessWidget {
 
               //PlodCat (logo) text
               Text('PlodCat', style: GoogleFonts.lobsterTwo(fontSize: 38)),
+
               const SizedBox(
                 height: 20,
                 width: 20,
               ),
+
               //(Welcome!) text
               Text('Welcome!', style: GoogleFonts.heebo(fontSize: 20)),
 
@@ -105,7 +107,7 @@ class LoginPage extends StatelessWidget {
                 width: 20,
               ),
 
-              //Dont have an account? Sign up Button
+              //Dont have an account? Register now
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -116,13 +118,14 @@ class LoginPage extends StatelessWidget {
                         color: Color.fromARGB(255, 163, 76, 127),
                       ),
                     ),
-              
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text('Not a PlodCat user?',
-                      style: TextStyle(color: Color.fromARGB(183, 66, 66, 66)),),
+                      child: Text(
+                        'Not a PlodCat user?',
+                        style:
+                            TextStyle(color: Color.fromARGB(183, 66, 66, 66)),
+                      ),
                     ),
-              
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
@@ -133,6 +136,37 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
 
+              const SizedBox(
+                height: 32,
+                width: 20,
+              ),
+
+              //Register now text
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 170.0),
+                child: Expanded(
+                        child: Divider(
+                          thickness: 0.4,
+                          color: Color.fromARGB(255, 5, 5, 5),
+                        ),
+                      ),
+              ),
+              Text(
+                'Register now',
+                style: GoogleFonts.robotoSlab(
+                  fontSize: 15,
+                  textStyle: TextStyle(color: Color.fromARGB(255, 120, 109, 223)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 170.0),
+                child: Expanded(
+                        child: Divider(
+                          thickness: 0.4,
+                          color: Color.fromARGB(255, 5, 5, 5),
+                        ),
+                      ),
+              ),
 
               //more stuff if u want 2 c;
             ],
