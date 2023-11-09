@@ -61,7 +61,7 @@ class LoginPage extends StatelessWidget {
               ), // u can find the code for this object in components
 
               const SizedBox(
-                height: 20,
+                height: 12,
                 width: 20,
               ),
 
@@ -78,7 +78,6 @@ class LoginPage extends StatelessWidget {
               ),
 
               //forgot password TEXT (In a row)
-              
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -94,7 +93,7 @@ class LoginPage extends StatelessWidget {
               ),
 
               const SizedBox(
-                height: 45,
+                height: 32,
                 width: 20,
               ),
 
@@ -138,13 +137,13 @@ class LoginPage extends StatelessWidget {
               ),
 
               const SizedBox(
-                height: 26,
+                height: 32,
                 width: 20,
               ),
 
               //Register now text
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 180.0),
+                padding: const EdgeInsets.symmetric(horizontal: 170.0),
                 child: Expanded(
                         child: Divider(
                           thickness: 0.4,
@@ -152,20 +151,15 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
               ),
-              
-              GestureDetector(//GestureD is for making everythin that its inside a button
-                child: Text("Register now",
+              Text(
+                'Register now',
                 style: GoogleFonts.robotoSlab(
                   fontSize: 15,
                   textStyle: TextStyle(color: Color.fromARGB(255, 120, 109, 223)),
-                ),),
-                onTap: () {
-                  
-                },
+                ),
               ),
-            
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 180.0),
+                padding: const EdgeInsets.symmetric(horizontal: 170.0),
                 child: Expanded(
                         child: Divider(
                           thickness: 0.4,
@@ -174,7 +168,6 @@ class LoginPage extends StatelessWidget {
                       ),
               ),
 
-              
               //more stuff if u want 2 c;
             ],
           ),
