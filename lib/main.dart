@@ -10,13 +10,13 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-//pene 
+//pene
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(), 
+      home: LoginPage(),
       theme: LigthMode,
       //darkTheme: DarkMode,
     );
