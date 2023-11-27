@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/components/My_Button.dart';
 import 'package:flutter_application_2/components/TextField.dart';
+import 'package:flutter_application_2/pages/forgot_password.dart';
 import 'package:flutter_application_2/pages/register_page.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   //Text editing controllers
   final usernameController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   //sign user in method event
@@ -82,16 +90,20 @@ class LoginPage extends StatelessWidget {
                 //forgot password TEXT (In a row)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    //we wrap it into a row so it isn't on the center
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        '¿Olvidaste tu contraseña?',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 97, 81, 180)),
-                      ),
-                    ],
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(ForgotPwPage());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          '¿Olvidaste tu contraseña?',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 97, 81, 180)),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
@@ -156,7 +168,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 GestureDetector(
                   onTap: () {
                     // Navigate to the register page

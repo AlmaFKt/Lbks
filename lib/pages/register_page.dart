@@ -3,6 +3,8 @@ import 'package:flutter_application_2/components/My_Button.dart';
 import 'package:flutter_application_2/components/TextField.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'login_page.dart';
+
 class RegisterPage extends StatelessWidget {
   //we copied the one from the login page, so we can do some changes
   RegisterPage({super.key});
@@ -11,7 +13,7 @@ class RegisterPage extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasController = TextEditingController(); //we added this 2 TextEd
-  final usernameConfirmController = TextEditingController();
+  final emailController = TextEditingController();
 
   //register user in method event
   void registerUserIn() {}
@@ -70,7 +72,7 @@ class RegisterPage extends StatelessWidget {
                 ),
 
                 MyTextField(
-                  controller: usernameConfirmController,
+                  controller: emailController,
                   hintText: 'Email',
                   obscureText: false,
                 ), // u can find the code for this object in components
@@ -180,6 +182,16 @@ class RegisterPage extends StatelessWidget {
                 ),
 
                 GestureDetector(
+                  onTap: () {
+                    // Navigate to the logIn page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            LoginPage(), 
+                      ),
+                    );
+                  },
                   //GestureD is for making everythin that its inside a button
                   child: Text(
                     "Sign in",
@@ -189,7 +201,6 @@ class RegisterPage extends StatelessWidget {
                           TextStyle(color: Color.fromARGB(255, 66, 48, 224)),
                     ),
                   ),
-                  onTap: () {},
                 ),
 
                 const SizedBox(
