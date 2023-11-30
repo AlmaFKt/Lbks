@@ -37,7 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
   get: ^4.6.6
-
+  firebase_core: ^2.24.0
+  firebase_storage: ^11.5.3
+  cloud_firestore: ^4.13.3
+  firebase_auth: ^4.15.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +67,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - lib/Images/
+   - lib/Images/Smart_cat.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
