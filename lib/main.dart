@@ -6,6 +6,11 @@ import 'package:provider/provider.dart';
 import 'Theme/ligth_mode.dart';
 import 'model/cart_model.dart';
 import 'pages/intro_screen.dart';
+import 'package:flutter_application_2/Theme/dark_mode.dart';
+import 'package:flutter_application_2/Theme/ligth_mode.dart';
+import 'package:flutter_application_2/pages/login_page.dart';
+import 'package:flutter_application_2/pages/register_page.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +18,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,15 @@ class MyApp extends StatelessWidget {
         home: IntroScreen(),
         theme: LigthMode,
       //darkTheme: DarkMode,
-      ),
+      ));
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
+      theme: LigthMode,
+      //darkTheme: DarkMode,
     );
   }
-}
+}}

@@ -11,4 +11,8 @@ ThemeData DarkMode = ThemeData(
     textTheme: ThemeData.dark().textTheme.apply(
           bodyColor: Color.fromARGB(255, 233, 228, 228),
           displayColor: Colors.white,
+<<<<<<< HEAD
         ));
+=======
+        ));
+>>>>>>> 4afe8ef9462087c0270a845082d02f63250f9d17

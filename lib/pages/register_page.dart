@@ -36,7 +36,11 @@ class RegisterPage extends StatelessWidget {
                   children: [
                     Image.asset(
                       'lib/Images/catLogo.webp',
+<<<<<<< HEAD
                       height: 70,
+=======
+                      height: 160,
+>>>>>>> 4afe8ef9462087c0270a845082d02f63250f9d17
                       width: 250,
                     ),
                   ],
@@ -225,4 +229,8 @@ class RegisterPage extends StatelessWidget {
       ),
     ); //In this page we are only gonna have a blank scaffold
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4afe8ef9462087c0270a845082d02f63250f9d17

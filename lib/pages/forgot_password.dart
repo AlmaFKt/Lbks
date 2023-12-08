@@ -121,4 +121,8 @@ class _ForgotPwPageState extends State<ForgotPwPage> {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4afe8ef9462087c0270a845082d02f63250f9d17
