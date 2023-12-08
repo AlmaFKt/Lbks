@@ -25,7 +25,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -33,8 +32,6 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.grey[700],
         ),
       ),
-=======
->>>>>>> 4afe8ef9462087c0270a845082d02f63250f9d17
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -50,11 +47,8 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Image.asset(
                       'lib/Images/catLogo.webp',
-<<<<<<< HEAD
+
                       height: 70,
-=======
-                      height: 180,
->>>>>>> 4afe8ef9462087c0270a845082d02f63250f9d17
                       width: 250,
                     ),
                   ],

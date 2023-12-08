@@ -10,8 +10,5 @@ ThemeData LigthMode = ThemeData(
     textTheme: ThemeData.light().textTheme.apply(
           bodyColor: Color.fromARGB(255, 14, 13, 13),
           displayColor: Color.fromARGB(255, 8, 8, 8),
-<<<<<<< HEAD
         ));
-=======
-        ));
->>>>>>> 4afe8ef9462087c0270a845082d02f63250f9d17
+
