@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/pages/login_page.dart';
+import 'package:flutter_application_2/pages/home_page.dart';
+import 'package:get/get.dart';
+//import 'package:Theme/dark_mode.dart';
+import 'package:provider/provider.dart';
+import 'Theme/ligth_mode.dart';
+import 'model/cart_model.dart';
+import 'pages/intro_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,12 +14,16 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginPage(), 
+    return ChangeNotifierProvider(
+      create: (context) => CartModel(),
+      child: GetMaterialApp( // with the Get encierra todo tu proyecto y el Get tiene control de todo
+        debugShowCheckedModeBanner: false,
+        home: IntroScreen(),
+        theme: LigthMode,
+      //darkTheme: DarkMode,
+      ),
     );
   }
 }
