@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
       ),
 
       
-      floatingActionButton: FloatingActionButton(
+      /* floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () => Navigator.push(
           context,
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
         ),
         child: const Icon(Icons.add,
         color: Color.fromARGB(255, 225, 192, 228)),
-      ),
+      ), */
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

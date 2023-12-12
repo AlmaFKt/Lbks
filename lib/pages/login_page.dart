@@ -142,7 +142,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     //log in button
-                    //log in button
                     MyButton(
                       text: 'Log In', // Add the text parameter for the button
                       onTap: signUserIn,
