@@ -30,7 +30,7 @@ class _ForgotPwPageState extends State<ForgotPwPage> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              content: Text('correo existente, email enviado!'),
+              content: Text('Correo existente, email enviado!'),
             );
           });
     } on FirebaseAuthException catch (e) {
