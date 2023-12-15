@@ -18,19 +18,22 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //Text editing controllers
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
 
   //sign user in method event
   void signUserIn() async {
-   try {
-     await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
-    );
-   } on FirebaseAuthException catch (e){
-    print(e.code);
-   }
+    try {
+  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: emailController.text,
+    password: passwordController.text,
+  );
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'user-not-found') {
+    print('No user found for that email.');
+  } else if (e.code == 'wrong-password') {
+    print('Wrong password provided for that user.');
+  }
+}
   }
 
   @override
@@ -95,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     //username textfield
                     MyTextField(
                       controller: emailController,
-                      hintText: 'Username',
+                      hintText: 'Email',
                       obscureText: false,
                     ), // u can find the code for this object in components
 
@@ -143,8 +146,10 @@ class _LoginPageState extends State<LoginPage> {
 
                     //log in button
                     MyButton(
-                      text: 'Log In', // Add the text parameter for the button
-                      onTap: signUserIn,
+                      text: 'Sign In',
+                      onTap: () {
+                        signUserIn();
+                      },
                     ),
 
                     const SizedBox(
