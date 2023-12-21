@@ -23,24 +23,44 @@ class _LoginPageState extends State<LoginPage> {
   //sign user in method event
   void signUserIn() async {
     try {
-  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: emailController.text,
-    password: passwordController.text,
-  );
-} on FirebaseAuthException catch (e) {
-  if (e.code == 'user-not-found') {
-    print('No user found for that email.');
-  } else if (e.code == 'wrong-password') {
-    print('Wrong password provided for that user.');
-  }
-}
+      // Show loading indicator
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+
+      // Sign in with email and password
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      // Navigate to the home page on successful sign-in
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+    } catch (error) {
+      // Handle sign-in errors
+      print("Sign-in failed: $error");
+
+      // Optionally, you can show an error message to the user
+    } finally {
+      // Close loading indicator
+      Navigator.pop(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: null, // Set the appBar property to null
-
         backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
           child: SingleChildScrollView(

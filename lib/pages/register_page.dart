@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/components/My_Button.dart';
 import 'package:flutter_application_2/components/TextField.dart';
+import 'package:flutter_application_2/pages/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'login_page.dart';
@@ -16,7 +18,57 @@ class RegisterPage extends StatelessWidget {
   final emailController = TextEditingController();
 
   //register user in method event
-  void registerUserIn() {}
+  void registerUserIn(BuildContext context) async {
+  try {
+    // Validate password and confirm password
+    if (passwordController.text != confirmPasController.text) {
+      // Passwords don't match, show a SnackBar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Passwords don't match"),
+          duration: Duration(seconds: 2), // Adjust the duration as needed
+        ),
+      );
+      return;
+    }
+
+    // Show loading indicator
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    // Use Firebase Authentication to create a new user account
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+
+    // Close loading indicator
+    Navigator.pop(context);
+
+    // Registration successful, navigate to home page
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ),
+    );
+  } catch (error) {
+    // Handle registration errors
+    print("Registration failed: $error");
+
+    // Close loading indicator
+    Navigator.pop(context);
+  }
+}
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +180,9 @@ class RegisterPage extends StatelessWidget {
                 //log in button
                 MyButton(
                   text: 'Register', // Add the text parameter for the button
-                  onTap: registerUserIn,
+                  onTap: () {
+                    registerUserIn(context);
+                  },
                 ),
 
                 const SizedBox(
