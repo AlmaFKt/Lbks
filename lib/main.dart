@@ -4,7 +4,6 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Theme/ligth_mode.dart';
-import 'pages/intro_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

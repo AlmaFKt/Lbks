@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/components/drawer.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../auth/FB_Auth.dart';
@@ -32,13 +33,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(44, 201, 184, 211),
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 24.0),
-          child: Icon(
-            CupertinoIcons.bars,
-            color: Colors.grey[700],
-          ),
-        ),
         title: Text(
           'Tlaltizapán, Morelos',
           style: TextStyle(
@@ -70,7 +64,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-
+      drawer: MyDrawer(),
       /* floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () => Navigator.push(

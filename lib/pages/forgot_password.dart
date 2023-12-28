@@ -22,30 +22,30 @@ class _ForgotPwPageState extends State<ForgotPwPage> {
   }
 
   Future pwReset() async {
-    // when u click Reset if it procceds it happens try
-    try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: emailController.text.trim());
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text('Correo existente, email enviado!'),
-            );
-          });
-    } on FirebaseAuthException catch (e) {
-      // if it doesnt then whats the error
-      print(e); // like for example a email that doesnt exists in our data base
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text(e.message.toString()),
-            );
-          });
-    }
-  }
-
+  try {
+  await FirebaseAuth.instance
+      .sendPasswordResetEmail(email: emailController.text.trim());
+  // Always show a success message
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        content: Text('If the email is registered, a password reset email has been sent to ${emailController.text.trim()}'),
+      );
+    },
+  );
+} catch (e) {
+  // Show a dialog with the error message
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        content: Text('Error: ${e.toString()}'),
+      );
+    },
+  );
+}
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,70 +54,72 @@ class _ForgotPwPageState extends State<ForgotPwPage> {
         backgroundColor: Color.fromARGB(255, 85, 52, 68),
         elevation: 0,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'lib/Images/Smart_cat.png',
-                      height: 180,
-                      width: 250,
-                    ),
-                  ],
-                ),
-
-                const SizedBox(
-                  height: 20,
-                ),
-
-                Text(
-                  'Ingresa tu E-mail',
-                  style: GoogleFonts.breeSerif(fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'lib/Images/Smart_cat.png',
+                        height: 180,
+                        width: 250,
+                      ),
+                    ],
+                  ),
+      
+                  const SizedBox(
+                    height: 20,
+                  ),
+      
+                  Text(
+                    'Ingresa tu E-mail',
+                    style: GoogleFonts.breeSerif(fontSize: 20),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
-          ),
-          
-          const SizedBox(
-            height: 20,
-          ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Text(
-              'Mandaremos un link para resetear tu contraseña',
-              style: GoogleFonts.heebo(fontSize: 16),
-              textAlign: TextAlign.center,
+            
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: MyTextField(
-              controller: emailController,
-              hintText: 'Email',
-              obscureText: false,
+      
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                'Mandaremos un link para resetear tu contraseña',
+                style: GoogleFonts.heebo(fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          MaterialButton(
-            onPressed: pwReset,
-            child: Text('Send email'),
-            color: Color.fromARGB(255, 236, 201, 201),
-          ),
-        ],
+            const SizedBox(
+              height: 35,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: MyTextField(
+                controller: emailController,
+                hintText: 'Email',
+                obscureText: false,
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            MaterialButton(
+              onPressed: pwReset,
+              child: Text('Send email'),
+              color: Color.fromARGB(255, 236, 201, 201),
+            ),
+          ],
+        ),
       ),
     );
   }

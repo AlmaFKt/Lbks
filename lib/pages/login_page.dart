@@ -22,40 +22,58 @@ class _LoginPageState extends State<LoginPage> {
 
   //sign user in method event
   void signUserIn() async {
-    try {
-      // Show loading indicator
-      showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      );
+  // Validate email and password
+  if (emailController.text.trim().isEmpty || passwordController.text.isEmpty) {
+    // Empty email or password
+    showErrorDialog('Please enter both email and password.');
+    return;
+  }
 
-      // Sign in with email and password
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+  // Show loading indicator
+  showDialog(
+    context: context,
+    builder: (context) {
+      return const Center(
+        child: CircularProgressIndicator(),
       );
+    },
+  );
 
-      // Navigate to the home page on successful sign-in
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ),
-      );
-    } catch (error) {
-      // Handle sign-in errors
-      print("Sign-in failed: $error");
+  try {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
 
-      // Optionally, you can show an error message to the user
-    } finally {
-      // Close loading indicator
-      Navigator.pop(context);
+    // Close the loading indicator
+    Navigator.pop(context);
+
+    // Navigate to the home page
+    Get.to(() => HomePage());
+  } on FirebaseAuthException catch (e) {
+    // Close the loading indicator
+    Navigator.pop(context);
+
+    // Handle specific authentication errors
+    if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+      showErrorDialog('Incorrect Email or Password');
+    } else {
+      // Handle other authentication errors
+      showErrorDialog('Incorrect Email or Password');
     }
   }
+}
+
+void showErrorDialog(String errorMessage) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        content: Text(errorMessage),
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
