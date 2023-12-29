@@ -31,13 +31,26 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(44, 201, 184, 211),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: Color.fromARGB(255, 100, 35, 75), // Set the color here
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+        backgroundColor: Color.fromARGB(255, 207, 199, 203),
         elevation: 0,
         title: Text(
           'Tlaltizapán, Morelos',
           style: TextStyle(
             fontSize: 16,
-            color: Colors.grey[700],
+            color: Color.fromARGB(255, 43, 43, 43),
           ),
         ),
         centerTitle: false,
@@ -45,19 +58,18 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 24.0),
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(12),
+                color: Color.fromARGB(19, 93, 48, 76),
+                borderRadius: BorderRadius.circular(18),
               ),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                  Get.to(() => LoginPage());
                 },
                 child: Icon(
                   Icons.person,
-                  color: Colors.grey,
+                  color: Color.fromARGB(255, 104, 52, 84),
                 ),
               ),
             ),
@@ -65,7 +77,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: MyDrawer(),
-      /* floatingActionButton: FloatingActionButton(
+       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () => Navigator.push(
           context,
@@ -77,7 +89,7 @@ class _HomePageState extends State<HomePage> {
         ),
         child: const Icon(Icons.add,
         color: Color.fromARGB(255, 225, 192, 228)),
-      ), */
+      ), 
 
       body: SafeArea(
         child: SingleChildScrollView(
