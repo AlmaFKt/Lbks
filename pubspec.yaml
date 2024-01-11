@@ -43,6 +43,8 @@ dependencies:
   firebase_auth: ^4.15.2
   provider: ^6.1.1
   location: ^5.0.3
+  intl: ^0.19.0 #for time
+  image_picker: ^1.0.5 #For image picker
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +72,7 @@ flutter:
   assets:
    - lib/Images/
    - lib/Images/Smart_cat.png
+   - assets/
 
   #   - images/a_dot_ham.jpeg
 

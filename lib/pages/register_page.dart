@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/components/My_Button.dart';
 import 'package:flutter_application_2/components/TextField.dart';
 import 'package:flutter_application_2/pages/home_page.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'login_page.dart';
@@ -17,6 +18,19 @@ class RegisterPage extends StatelessWidget {
   final confirmPasController = TextEditingController(); //we added this 2 TextEd
   final emailController = TextEditingController();
 
+void updateUserName(String newName) async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        await user.updateDisplayName(newName);
+        user = FirebaseAuth.instance.currentUser; // Refresh the user object
+        print("User display name updated: ${user?.displayName}");
+      } catch (e) {
+        print("Error updating user display name: $e");
+      }
+    }
+  }
   //register user in method event
   void registerUserIn(BuildContext context) async {
   try {
@@ -43,29 +57,47 @@ class RegisterPage extends StatelessWidget {
     );
 
     // Use Firebase Authentication to create a new user account
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
-    );
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text);
+
+    // Update the user's display name
+    if (userCredential.user != null) {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        try {
+          await user.updateDisplayName(usernameController.text);
+          user = FirebaseAuth.instance.currentUser; // Refresh the user object
+          print("User display name updated: ${user?.displayName}");
+        } catch (e) {
+          print("Error updating user display name: $e");
+        }
+      }
+    }
 
     // Close loading indicator
     Navigator.pop(context);
 
     // Registration successful, navigate to home page
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HomePage(),
-      ),
-    );
+    Get.offAll(() => HomePage());
+
   } catch (error) {
     // Handle registration errors
     print("Registration failed: $error");
 
     // Close loading indicator
     Navigator.pop(context);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Registration failed: $error"),
+        duration: Duration(seconds: 4), // Adjust the duration as needed
+      ),
+    );
   }
 }
+
 
   @override
   Widget build(BuildContext context) {
@@ -149,26 +181,6 @@ class RegisterPage extends StatelessWidget {
                   obscureText: true,
                 ),
 
-                /* const SizedBox(
-                height: 12,
-                width: 20,
-              ), */
-
-                //forgot password TEXT (In a row)
-
-                /* Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  //we wrap it into a row so it isn't on the center
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      '¿Olvidaste tu contraseña?',
-                      style: TextStyle(color: Color.fromARGB(255, 97, 81, 180)),
-                    ),
-                  ],
-                ),
-              ), */
 
                 const SizedBox(
                   height: 25,

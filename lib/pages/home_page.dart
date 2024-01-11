@@ -7,25 +7,62 @@ import 'package:google_fonts/google_fonts.dart';
 import '../auth/FB_Auth.dart';
 import 'add_post.dart';
 import 'login_page.dart';
+import 'package:intl/intl.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key});
+  HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   late User? _user;
+  late DateTime currentTime;
+  late int currentTimeOfDay;
 
+//get the current time
+  @override
   void initState() {
     super.initState();
+    currentTime = DateTime.now();
+    currentTimeOfDay = currentTime.hour;
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       setState(() {
         _user = user;
       });
     });
   }
+
+  //method for greeting depending on the time of the day
+  String getGreeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good morning';
+    }
+    if (hour < 17) {
+      return 'Good afternoon';
+    }
+    return 'Good evening';
+  }
+
+// method for getting the current date
+String getCurrentDayGreeting() {
+  final Map<int, String> dayGreetings = {
+    DateTime.monday: 'Buen Lunes',
+    DateTime.tuesday: 'Horroroso Martes',
+    DateTime.wednesday: 'Excelente Miércoles',
+    DateTime.thursday: 'Feliz Jueves',
+    DateTime.friday: 'Fantástico Viernes',
+    DateTime.saturday: 'Super Sábado',
+    DateTime.sunday: 'Domingo de descanso',
+  };
+
+  final int currentDay = DateTime.now().weekday;
+  return dayGreetings[currentDay] ?? 'Hello';
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             return IconButton(
               icon: Icon(
                 Icons.menu,
-                color: Color.fromARGB(255, 100, 35, 75), // Set the color here
+                color: Color.fromARGB(255, 100, 35, 75),
               ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -47,7 +84,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Color.fromARGB(255, 207, 199, 203),
         elevation: 0,
         title: Text(
-          'Tlaltizapán, Morelos',
+          getCurrentDayGreeting(), //using the method for getting the current date
           style: TextStyle(
             fontSize: 16,
             color: Color.fromARGB(255, 43, 43, 43),
@@ -65,7 +102,13 @@ class _HomePageState extends State<HomePage> {
               ),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => LoginPage());
+                  if (_user != null) {
+                    // User is logged in, navigate to the profile page
+                    Get.to(() => ProfilePage()); 
+                  } else {
+                    // User is not logged in, navigate to the login page
+                    Get.to(() => LoginPage());
+                  }
                 },
                 child: Icon(
                   Icons.person,
@@ -77,7 +120,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: MyDrawer(),
-       floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () => Navigator.push(
           context,
@@ -87,10 +130,8 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
-        child: const Icon(Icons.add,
-        color: Color.fromARGB(255, 225, 192, 228)),
-      ), 
-
+        child: const Icon(Icons.add, color: Color.fromARGB(255, 225, 192, 228)),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -115,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                       // User is signed in. Display the user's email.
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 24.0),
-                        child: Text('Hi ' + snapshot.data!.email!),
+                        child: Text('Hi ' + snapshot.data!.displayName!),
                       );
                     } else {
                       // User is not signed in. Display a default message.
@@ -129,9 +170,9 @@ class _HomePageState extends State<HomePage> {
               ),
 
               // good morning
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: Text('Good morning,'),
+                child: Text(getGreeting() + '!'),
               ),
 
               const SizedBox(height: 4),
