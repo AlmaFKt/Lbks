@@ -120,18 +120,23 @@ String getCurrentDayGreeting() {
         ],
       ),
       drawer: MyDrawer(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: _user != null
+    ? FloatingActionButton(
         backgroundColor: Colors.black,
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return AddPost();
-            },
-          ),
-        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return AddPost();
+              },
+            ),
+          );
+        },
         child: const Icon(Icons.add, color: Color.fromARGB(255, 225, 192, 228)),
-      ),
+      )
+    : null,
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

@@ -42,7 +42,7 @@ Color avatarBackgroundColor = Color.fromARGB(255, 132, 94, 119);
                           ? NetworkImage(currentUser.photoURL!)
                           : AssetImage('assets/default_avatar.png')
                               as ImageProvider<
-                                  Object>, // Provide a default avatar image
+                                  Object>, 
                     ),
                   )
                 : CircleAvatar(
