@@ -15,6 +15,12 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   User? _user;
 
+//text for notifications list
+  List<String> notifications = [
+    'Tienes un nuevo seguidor',
+    'Haz una publicación',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -29,177 +35,190 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-                            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  // Display the profile image
-                  backgroundImage: AssetImage('assets/default_avatar.png'),
-                ),
-                IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {
-                    Get.to(() => HomePage());
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Bienvenido,',
-                  style: GoogleFonts.assistant(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CircleAvatar(
+                    radius: 20,
+                    // Display the profile image
+                    backgroundImage: AssetImage('assets/default_avatar.png'),
                   ),
-                ),
-                const SizedBox(height: 3),
-                // User Name
-                Text(
-                  _user?.displayName ??
-                      'User Name', // Display the user name if it is not null
-                  style: GoogleFonts.assistant(
-                    fontSize: 28,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black54,
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Get.to(() => HomePage());
+                    },
                   ),
-                ),
-               
-                const SizedBox(height: 35),
-                
-                Row(
-                  children: [
-                    Icon(Icons.notifications_none_rounded), // Notification icon
-                    const SizedBox(width: 14),
-                    Text(
-                      'Notificaciones',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
+                ],
+              ),
+              const SizedBox(height: 30),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Bienvenido,',
+                    style: GoogleFonts.assistant(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  // User Name
+                  Text(
+                    _user?.displayName ??
+                        'User Name', // Display the user name if it is not null
+                    style: GoogleFonts.assistant(
+                      fontSize: 28,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black54,
+                    ),
+                  ),
+      
+                  const SizedBox(height: 35),
+      
+                  ExpansionTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.notifications_none_rounded),
+                        const SizedBox(width: 10),
+                        Text(
+                          'Notificaciones',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                    children: [
+                      // List of notifications
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: notifications.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(notifications[index]),
+                            // Add onTap behavior for each notification if needed
+                          );
+                        },
                       ),
+                    ],
+                  ),
+      
+                  const SizedBox(height: 8),
+      
+                  Divider(),
+      
+                  ExpansionTile(
+                    title: Row(
+                      children: [
+                        Icon(CupertinoIcons.tickets),
+                        const SizedBox(width: 14),
+                        Text(
+                          'Mis Boletos',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
                     ),
-                    const Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.keyboard_arrow_down_outlined),
-                      onPressed: () {
-                      },
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 8),
-
-                Divider(), 
-
-                Row(
-                  children: [
-                    Icon(CupertinoIcons.tickets), // My tickets icon
-                    const SizedBox(width: 14),
-                    Text(
-                      'Mis Boletos',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
+                    children: [
+                      // List of notifications
+                      ListTile(
+                        title: Text('Ver Próximos Eventos'),
+                        onTap: () {},
                       ),
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.keyboard_arrow_down_outlined),
-                      onPressed: () {
-                      },
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 8),
-
-                Divider(), 
-
-                Row(
-                  children: [
-                    Icon(Icons.favorite_border), //My favorites icon
-                    const SizedBox(width: 14),
-                    Text(
-                      'Mis Favoritos',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
+                      ListTile(
+                        title: Text('Ver Eventos Pasados'),
+                        onTap: () {},
                       ),
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.keyboard_arrow_right_outlined),
-                      onPressed: () {
-                      },
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 8),
-
-                Divider(), 
-
-                Row(
-                  children: [
-                    Icon(CupertinoIcons.person_crop_circle), //My Profile icon
-                    const SizedBox(width: 14),
-                    Text(
-                      'Mi Cuenta',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
+                    ],
+                  ),
+      
+                  const SizedBox(height: 8),
+      
+                  Divider(),
+      
+                  Row(
+                    children: [
+                      Icon(Icons.favorite_border), //My favorites icon
+                      const SizedBox(width: 14),
+                      Text(
+                        'Mis Favoritos',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.keyboard_arrow_right_outlined),
-                      onPressed: () {
-                      },
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 8),
-
-                Divider(),
-
-                Row(
-                  children: [
-                    Icon(Icons.sos_sharp), //My favorites icon
-                    const SizedBox(width: 14),
-                    Text(
-                      'Ayuda Ciudadana',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
+                      const Spacer(),
+                      IconButton(
+                        icon: Icon(Icons.keyboard_arrow_right_outlined),
+                        onPressed: () {},
                       ),
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.keyboard_arrow_right_outlined),
-                      onPressed: () {
-                      },
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 8),
-
-                Divider(),  
-                
-              ],
-            ),
-          ],
+                    ],
+                  ),
+      
+                  const SizedBox(height: 8),
+      
+                  Divider(),
+      
+                  Row(
+                    children: [
+                      Icon(CupertinoIcons.person_crop_circle), //My Profile icon
+                      const SizedBox(width: 14),
+                      Text(
+                        'Mi Cuenta',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        icon: Icon(Icons.keyboard_arrow_right_outlined),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+      
+                  const SizedBox(height: 8),
+      
+                  Divider(),
+      
+                  Row(
+                    children: [
+                      Icon(Icons.sos_sharp), //My favorites icon
+                      const SizedBox(width: 14),
+                      Text(
+                        'Ayuda Ciudadana',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        icon: Icon(Icons.keyboard_arrow_right_outlined),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+      
+                  const SizedBox(height: 8),
+      
+                  Divider(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
